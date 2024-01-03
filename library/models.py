@@ -23,6 +23,9 @@ class Book(models.Model):
                             help_text='13 simbolių <a href="https://en.wikipedia.org/wiki/ISBN">ISBN wiki</a>')
     genre = models.ManyToManyField('Genre', help_text='Išrinkite knygai žanrus')
 
+    def display_genre(self):
+        return ', '.join(el.name for el in self.genre.all())
+
     def __str__(self):
         return f'{self.title}'
 
@@ -32,6 +35,10 @@ class Genre(models.Model):
 
     def __str__(self):
         return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Žanras'
+        verbose_name_plural = 'Žanrai'
 
 
 class BookInstance(models.Model):
