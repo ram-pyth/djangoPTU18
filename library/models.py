@@ -1,4 +1,5 @@
 from django.db import models
+import uuid
 
 
 class Author(models.Model):
@@ -18,7 +19,8 @@ class Book(models.Model):
     title = models.CharField('Pavadinimas', max_length=150)
     author = models.ForeignKey(Author, on_delete=models.SET_NULL, null=True)
     summary = models.TextField('Aprašymas', max_length=1000, help_text='Trumpas knygos aprašymas')
-    isbn = models.CharField('ISBN', max_length=13)
+    isbn = models.CharField('ISBN', max_length=13,
+                            help_text='13 simbolių <a href="https://en.wikipedia.org/wiki/ISBN">ISBN wiki</a>')
     genre = models.ManyToManyField('Genre', help_text='Išrinkite knygai žanrus')
 
     def __str__(self):
@@ -30,3 +32,28 @@ class Genre(models.Model):
 
     def __str__(self):
         return f'{self.name}'
+
+
+class BookInstance(models.Model):
+    """Modelis reprezentuojantis konkretų fizinį knygos egzemplorių"""
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unikalus ID knygos egzemplioriui')
+    book = models.ForeignKey(Book, on_delete=models.SET_NULL, null=True)
+    due_back = models.DateField('Bus prieinama', null=True, blank=True)
+
+    LOAN_STATUS = (
+        ('a', 'Administruojama'),
+        ('p', 'Paimta'),
+        ('g', 'Galima paimti'),
+        ('r', 'Rezervuota')
+    )
+    status = models.CharField(max_length=1, choices=LOAN_STATUS,
+                              blank=True, default='a', help_text='Statusas')
+
+    class Meta:
+        ordering = ['due_back', ]
+
+    def __str__(self):
+        return f'{self.id} {self.book}'
+
+
+
