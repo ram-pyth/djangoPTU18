@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+from .models import Author, Book, BookInstance, Genre
+
 
 def index(request):
-    return HttpResponse("<h1> Hello, čia mano pirmasis Django webappsas!!!! </h1>")
+    return render(request, 'index.html')
