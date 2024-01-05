@@ -20,8 +20,8 @@ MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
             {% block sidebar %}
             <ul class="sidebar-nav">
                 <li><a href="{% url 'index' %}">Pradžia</a></li>
-                <li><a href="{% url 'index' %}" class="text-nowrap">Visos knygos</a></li>
-                <li><a href="{% url 'index' %}" class="text-nowrap">Visi autoriai</a></li> {# jinja komentaras #}
+                <li><a href="{% url 'index' %}" class="text-nowrap">Visos knygas</a></li>
+                <li><a href="{% url 'authors-all' %}" class="text-nowrap">Visi autoriai</a></li> {# jinja komentaras #}
                 <li>
                     <form action="" method="get" class="form-group">
                         <input type="text" name="search_text" class="form-control" placeholder="Paieška" style="min-width: 6rem;">

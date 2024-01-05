@@ -22,3 +22,11 @@ def index(request):
         'num_instances_available_t': num_instances_available
     }
     return render(request, 'index.html', context=context_my)
+
+
+def authors(request):
+    authors_objs = Author.objects.all()
+    context = {
+        'authors_t': authors_objs
+    }
+    return render(request, 'authors.html', context=context)
