@@ -43,10 +43,10 @@ class BookListView(generic.ListView):
     template_name = "book_list.html"
 
 
-# class BookDetailView(generic.DetailView):
-#     model = Book
-#     context_object_name = "book" # standartinis pavadinimas, sukuriamas django automatiškai
-#     template_name = "book_detail.html"
+class BookDetailView(generic.DetailView):
+    model = Book
+    context_object_name = "book" # standartinis pavadinimas, sukuriamas django automatiškai
+    template_name = "book_detail.html"
 
 
 

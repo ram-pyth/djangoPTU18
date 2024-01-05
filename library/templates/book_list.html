@@ -3,6 +3,7 @@
 {% block content %}
 <h1>Knygos:</h1>
 {% for book_obj in book_list %}
-<li>{{ book_obj.title }}</li>
+<li><a href="{% url 'book-one' book_obj.id %}">
+    {{ book_obj.title }}</a></li>
 {% endfor %}
 {% endblock %}
