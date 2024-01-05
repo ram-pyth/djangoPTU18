@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block content %}
 <h1>Rajono biblioteka</h1>
 <p>Knygų skaičius: {{ num_books_t }}</p>
 <p>Knygų egzempliorių skaičius: {{ num_bookinstances_t }}</p>
 <p>Autorių skaičius: {{ num_authors_t }}</p>
 <p>Šiuo momentu laisvi {{ num_instances_available_t }} knygų egz.</p>
+{% endblock %}
 
-</body>
-</html>
