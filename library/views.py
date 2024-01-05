@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
+from django.views import generic
 
 from .models import Author, Book, BookInstance, Genre
 
@@ -35,6 +35,19 @@ def authors(request):
 def author(request, author_id):
     single_author = get_object_or_404(Author, pk=author_id)
     return render(request, 'author.html', {'author_obj': single_author})
+
+
+class BookListView(generic.ListView):
+    model = Book
+    context_object_name = "book_list" # standartinis pavadinimas, sukuriamas django automatiškai
+    template_name = "book_list.html"
+
+
+# class BookDetailView(generic.DetailView):
+#     model = Book
+#     context_object_name = "book" # standartinis pavadinimas, sukuriamas django automatiškai
+#     template_name = "book_detail.html"
+
 
 
 
