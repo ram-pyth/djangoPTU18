@@ -52,7 +52,7 @@ class Genre(models.Model):
 class BookInstance(models.Model):
     """Modelis reprezentuojantis konkretų fizinį knygos egzemplorių"""
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unikalus ID knygos egzemplioriui')
-    book = models.ForeignKey(Book, on_delete=models.SET_NULL, null=True)
+    book = models.ForeignKey(Book, on_delete=models.SET_NULL, null=True) # auto related_name - bookinstance_set
     due_back = models.DateField('Bus prieinama', null=True, blank=True)
 
     LOAN_STATUS = (
