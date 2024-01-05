@@ -5,4 +5,8 @@
 <hr/>
 <p>{{ author_obj.description }}</p>
 <hr/>
+<h5>Turimos autoriaus knygos:</h5>
+{% for book in author_obj.books.all %}
+    <li> <strong>{{ book.title }}</strong>, {{ book.isbn }} </li>
+{% endfor %}
 {% endblock %}
