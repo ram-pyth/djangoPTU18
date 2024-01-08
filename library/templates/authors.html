@@ -7,4 +7,16 @@
     <li><a href="{% url 'author-one' author_obj.id %}">
         {{ author_obj.first_name }} {{ author_obj.last_name }}</a></li>
 {% endfor %}
+
+{% if authors_t.has_other_pages %}
+<ul class="pagination">
+{% for nr in authors_t.paginator.page_range %}
+    {% if authors_t.page == nr %}
+        <li class="page-item active">{{ nr }}</li>
+    {% else %}
+        <li class="page-item">{{ nr }}</li>
+    {% endif %}
+{% endfor %}
+</ul>
+{% endif %}
 {% endblock %}

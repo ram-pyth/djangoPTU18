@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from django.db.models import Q
+from django.core.paginator import Paginator
 
 from .models import Author, Book, BookInstance, Genre
 
@@ -27,8 +28,11 @@ def index(request):
 
 def authors(request):
     authors_objs = Author.objects.all()
+    paginator = Paginator(authors_objs, 2)
+    page_number = request.GET.get('page')
+    paged_authors_objs = paginator.get_page(page_number)
     context = {
-        'authors_t': authors_objs
+        'authors_t': paged_authors_objs
     }
     return render(request, 'authors.html', context=context)
 
