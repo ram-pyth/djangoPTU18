@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
+from django.db.models import Q
 
 from .models import Author, Book, BookInstance, Genre
 
@@ -47,6 +48,17 @@ class BookDetailView(generic.DetailView):
     model = Book
     context_object_name = "book" # standartinis pavadinimas, sukuriamas django automatiškai
     template_name = "book_detail.html"
+
+
+def search(request):
+    query_text = request.GET["search_text"]
+    search_results = Book.objects.filter(Q(title__icontains=query_text) |
+                                         Q(summary__icontains=query_text))
+    context_t = {
+        "book_objects": search_results,
+        "query_text_t": query_text
+    }
+    return render(request, "search.html", context=context_t)
 
 
 

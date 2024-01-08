@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Paieškos pagal "{{ query_text_t }}" rezultatai:</h2>
+
+<ul>
+    {% for book_o in book_objects %}
+    <li>
+        {{ book_o }}
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
