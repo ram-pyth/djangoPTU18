@@ -42,6 +42,7 @@ class BookListView(generic.ListView):
     model = Book
     context_object_name = "book_list" # standartinis pavadinimas, sukuriamas django automatiškai
     template_name = "book_list.html"
+    paginate_by = 4
 
 
 class BookDetailView(generic.DetailView):
@@ -51,7 +52,7 @@ class BookDetailView(generic.DetailView):
 
 
 def search(request):
-    query_text = request.GET["search_text"]
+    query_text = request.GET.get("search_text", "")
     search_results = Book.objects.filter(Q(title__icontains=query_text) |
                                          Q(summary__icontains=query_text) |
                                          Q(author__last_name__icontains=query_text))
