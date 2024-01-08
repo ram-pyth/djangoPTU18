@@ -2,13 +2,15 @@
 
 {% block content %}
 <h2>Paieškos pagal "{{ query_text_t }}" rezultatai:</h2>
-
+{% if book_objects %}
 <ul>
     {% for book_o in book_objects %}
     <li>
-        {{ book_o }}
+        <a href="{% url 'book-one' book_o.id %}">{{ book_o.title }}</a>, {{ book_o.author }}
     </li>
     {% endfor %}
 </ul>
-
+{% else %}
+<p>Ooops. Nieko nerasta...</p>
+{% endif %}
 {% endblock %}

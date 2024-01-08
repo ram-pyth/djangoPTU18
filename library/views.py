@@ -53,7 +53,8 @@ class BookDetailView(generic.DetailView):
 def search(request):
     query_text = request.GET["search_text"]
     search_results = Book.objects.filter(Q(title__icontains=query_text) |
-                                         Q(summary__icontains=query_text))
+                                         Q(summary__icontains=query_text) |
+                                         Q(author__last_name__icontains=query_text))
     context_t = {
         "book_objects": search_results,
         "query_text_t": query_text
