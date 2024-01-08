@@ -11,8 +11,10 @@
 {% for egz in book.bookinstance_set.all  %}
     <hr/>
     <p>Bus prieinama: {{ egz.due_back }}</p>
-    <p>Nr: {{ egz.id }}</p>
+<p>Nr: <span class="text-muted">{{ egz.id }}</span></p>
     <p class="{% if egz.status == 'p' %} text-danger
+              {% elif egz.status == 'a' %} text-muted
+              {% elif egz.status == 'g' %} text-success
               {% else %} text-warning
               {% endif %}
     "><strong>{{ egz.get_status_display }}</strong>
