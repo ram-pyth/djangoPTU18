@@ -17,11 +17,16 @@ def index(request):
     # suskaičiuojam laisvus knygų egzempliorius(statusas = 'g')
     num_instances_available = BookInstance.objects.filter(status__exact='g').count()
 
+    # skaičiuojam kiek kartų vartotojas prisijungė prie puslapio
+    num_visits = request.session.get('num_visits', 1)
+    request.session['num_visits'] = num_visits + 1
+
     context_my = {
         'num_books_t': num_books,
         'num_bookinstances_t': num_bookinstances,
         'num_authors_t': num_authors,
-        'num_instances_available_t': num_instances_available
+        'num_instances_available_t': num_instances_available,
+        'num_visits_t': num_visits,
     }
     return render(request, 'index.html', context=context_my)
 

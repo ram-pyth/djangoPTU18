@@ -10,3 +10,6 @@ urlpatterns = [
     path("books/<int:pk>", views.BookDetailView.as_view(), name="book-one"),
     path("search/", views.search, name="search")
 ]
+
+
+
