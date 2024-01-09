@@ -1,5 +1,6 @@
 from django.db import models
 import uuid
+import PIL
 
 
 class Author(models.Model):
@@ -28,6 +29,7 @@ class Book(models.Model):
     isbn = models.CharField('ISBN', max_length=13,
                             help_text='13 simbolių <a href="https://en.wikipedia.org/wiki/ISBN">ISBN wiki</a>')
     genre = models.ManyToManyField('Genre', help_text='Išrinkite knygai žanrus')
+    cover = models.ImageField('Viršelis', upload_to='covers', null=True, blank=True)
 
     def display_genre(self):
         return ', '.join(el.name for el in self.genre.all())
