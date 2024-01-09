@@ -9,12 +9,16 @@
 {% endfor %}
 
 {% if authors_t.has_other_pages %}
-<ul class="pagination">
+<ul class="pagination pagination-sm">
 {% for nr in authors_t.paginator.page_range %}
-    {% if authors_t.page == nr %}
-        <li class="page-item active">{{ nr }}</li>
+    {% if authors_t.number == nr %}
+        <li class="page-item active">
+            <a class="page-link" href="?page={{ nr }}">{{ nr }}</a>
+        </li>
     {% else %}
-        <li class="page-item">{{ nr }}</li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{ nr }}">{{ nr }}</a>
+        </li>
     {% endif %}
 {% endfor %}
 </ul>
