@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+
 {% block content %}
 <h1>Knygos:</h1>
 
@@ -19,18 +19,12 @@
     </span>
 </div>
 
-<div class="row">
 {% for book_obj in book_list %}
-<div class="col-sm-6 col-md-3 d-flex align-items-stretch">
-        <div class="card mb-4 shadow-sm">
-            {% if book_obj.cover %}
-            <img src="{{ book_obj.cover.url }}" class="card-img-top"/>
-            {% else %}
-            <img src="{% static 'img/no-image.png' %}" class="card-img-top"/>
-            {% endif %}
-        </div>
-</div>
+<li><a href="{% url 'book-one' book_obj.id %}">
+    {{ book_obj.title }}</a>, {{ book_obj.author.first_name }} {{ book_obj.author.last_name }}</li>
+    {% if book_obj.cover %}
+        <img src="{{ book_obj.cover.url }}"/>
+    {% endif %}
 {% endfor %}
-</div>
 
 {% endblock %}
