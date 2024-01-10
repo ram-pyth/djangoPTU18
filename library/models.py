@@ -70,6 +70,13 @@ class BookInstance(models.Model):
                               blank=True, default='a', help_text='Statusas')
     reader = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
+    @property
+    def is_overdue(self):
+        if self.due_back and date.today() > self.due_back:
+            return True
+        else:
+            return False
+
     class Meta:
         ordering = ['due_back', ]
 
