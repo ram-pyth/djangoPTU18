@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
+
+from datetime import date
 import uuid
 import PIL
 
@@ -65,6 +68,7 @@ class BookInstance(models.Model):
     )
     status = models.CharField(max_length=1, choices=LOAN_STATUS,
                               blank=True, default='a', help_text='Statusas')
+    reader = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     class Meta:
         ordering = ['due_back', ]

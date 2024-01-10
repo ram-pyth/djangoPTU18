@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from django.db.models import Q
 from django.core.paginator import Paginator
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Author, Book, BookInstance, Genre
 
@@ -70,6 +71,15 @@ def search(request):
         "query_text_t": query_text
     }
     return render(request, "search.html", context=context_t)
+
+
+class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
+    model = BookInstance
+    template_name = 'user_books.html'
+    context_object_name = 'bookinstance_list'
+
+    def get_queryset(self):
+        BookInstance.objects.filter(reader=self.request.user).order_by('due_back')
 
 
 
