@@ -130,4 +130,13 @@ MEDIA_URL = '/media/'
 
 LOGIN_REDIRECT_URL = '/'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+from . import secrets
+
+DEFAULT_FROM_EMAIL = secrets.EMAIL
+EMAIL_HOST = secrets.HOST
+EMAIL_PORT = 587
+EMAIL_USE_TLS = False
+EMAIL_HOST_USER = secrets.EMAIL
+EMAIL_HOST_PASSWORD = secrets.EMAIL_PASSWORD
