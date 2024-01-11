@@ -89,3 +89,16 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
 def register_user(request):
     if request.method == "GET":
         return render(request, 'registration/registration.html')
+    elif request.method == "POST":
+        # paimam duomenis iš formos
+        username = request.POST["username"]
+        email = request.POST["email"]
+        password = request.POST["password"]
+        password2 = request.POST["password2"]
+
+        if password != password2:
+            messages.error(request, "Slaptažodžiai nesutampa!!!")
+            return redirect('register-url')
+
+
+
