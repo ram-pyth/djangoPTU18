@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from tinymce.models import HTMLField
 from datetime import date
 import uuid
 import PIL
@@ -9,7 +10,8 @@ import PIL
 class Author(models.Model):
     first_name = models.CharField('Vardas', max_length=100)
     last_name = models.CharField('Pavardė', max_length=100)
-    description = models.TextField('Aprašymas', max_length=2000, default="biografija..")
+    # description = models.TextField('Aprašymas', max_length=2000, default="biografija..")
+    description = HTMLField()
 
     def display_books(self):
         return ', '.join(el.title for el in self.books.all()[:3]) + '...'
