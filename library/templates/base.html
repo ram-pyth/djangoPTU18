@@ -98,21 +98,26 @@
                 </li>
             </ul>
 
+
             <form
-                    class="form-inline my-2 my-lg-0"
+                    class="form-inline my-2 my-lg-0 flex-nowrap"
                     action="{% url 'search' %}"
                     method="get"
             >
-                <input
-                        class="form-control mr-sm-2"
-                        type="search"
-                        placeholder="Paieška"
-                        aria-label="Search"
-                        name="search_text"
-                />
-                <button class="btn btn-outline-info my-2 my-sm-0" type="submit">
-                    Ieškoti
-                </button>
+                <div class="input-group col-md-8">
+                    <input
+                            class="form-control"
+                            type="search"
+                            placeholder="Paieška"
+                            aria-label="Search"
+                            name="search_text"
+                    />
+                </div>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-info my-2 my-sm-0" type="submit">
+                        Ieškoti
+                    </button>
+                </div>
             </form>
         </div>
     </div>

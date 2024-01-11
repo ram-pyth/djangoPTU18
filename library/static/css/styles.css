@@ -8,7 +8,7 @@ body {
 }
 */
 
-.card {
+/*.card {
     height: 430px;
     margin-right: 15px;
     margin-bottom: 15px;
@@ -18,4 +18,22 @@ body {
 .card-img-top {
     height: 75%;
     object-fit: contain;
+}*/
+
+.card {
+    min-height: 470px;
+    width: 100%;
+}
+
+.card-body{
+    height: 25%;
+}
+
+.card img{
+    height: 75%;
+    object-fit: contain;
+}
+
+.navbar-nav li {
+    white-space: nowrap;
 }
