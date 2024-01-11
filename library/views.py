@@ -1,8 +1,11 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from django.db.models import Q
 from django.core.paginator import Paginator
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import User
+from django.views.decorators.csrf import csrf_protect
+from django.contrib import messages
 
 from .models import Author, Book, BookInstance, Genre
 
@@ -50,14 +53,14 @@ def author(request, author_id):
 
 class BookListView(generic.ListView):
     model = Book
-    context_object_name = "book_list" # standartinis pavadinimas, sukuriamas django automatiškai
+    context_object_name = "book_list"  # standartinis pavadinimas, sukuriamas django automatiškai
     template_name = "book_list.html"
     paginate_by = 4
 
 
 class BookDetailView(generic.DetailView):
     model = Book
-    context_object_name = "book" # standartinis pavadinimas, sukuriamas django automatiškai
+    context_object_name = "book"  # standartinis pavadinimas, sukuriamas django automatiškai
     template_name = "book_detail.html"
 
 
@@ -82,6 +85,7 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
         return BookInstance.objects.filter(reader=self.request.user).order_by('due_back')
 
 
-
-
-
+@csrf_protect
+def register_user(request):
+    if request.method == "GET":
+        return render(request, 'registration/registration.html')
