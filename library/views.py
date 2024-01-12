@@ -3,7 +3,7 @@ from django.views import generic
 from django.db.models import Q
 from django.core.paginator import Paginator
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.forms import User
+from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
 
@@ -87,18 +87,31 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
 
 @csrf_protect
 def register_user(request):
-    if request.method == "GET":
+    if request.method != "POST":
         return render(request, 'registration/registration.html')
-    elif request.method == "POST":
-        # paimam duomenis iš formos
-        username = request.POST["username"]
-        email = request.POST["email"]
-        password = request.POST["password"]
-        password2 = request.POST["password2"]
 
-        if password != password2:
-            messages.error(request, "Slaptažodžiai nesutampa!!!")
-            return redirect('register-url')
+    # jeigu POST
+    username = request.POST["username"]
+    email = request.POST["email"]
+    password = request.POST["password"]
+    password2 = request.POST["password2"]
+
+    if password != password2 :
+        messages.error(request, "Slaptažodžiai nesutampa!!!")
+
+    if User.objects.filter(username=username).exists():
+        messages.error(request, f"Vartotojo vardas {username} užimtas!!!")
+
+    if User.objects.filter(email=email).exists():
+        messages.error(request, f"Emailas {email} jau registruotas!!!")
+
+    if messages:
+        return redirect('register-url')
+
+    User.objects.create_user(username=username, email=email, password=password)
+    messages.success(request, f"Vartotojas vardu {username} sukurtas!!!")
+    return redirect('login')
+
 
 
 
