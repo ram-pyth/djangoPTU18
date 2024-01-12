@@ -10,6 +10,7 @@
 <p><strong>Aprašymas:</strong> {{ book.summary }} </p>
 <p><strong>Žanrai:</strong> {{ book.display_genre }}</p>
 <hr/>
+{% if user.is_authenticated %}
 <div class="fieldWrapper">
     <h4>Palikite atsiliepimą</h4>
     <form action="" method="post">
@@ -18,8 +19,7 @@
         <input type="submit" class="btn btn-outline-success btn-sm" value="Išsaugoti komentarą"/>
     </form>
 </div>
-
-
+{% endif %}
 <h4>Komentarai:</h4>
 {% if book.bookreview_set.all %}
     {% for review in book.bookreview_set.all %}

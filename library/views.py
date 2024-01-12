@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.views import generic
 from django.db.models import Q
 from django.core.paginator import Paginator
@@ -81,6 +81,10 @@ class BookDetailView(generic.edit.FormMixin, generic.DetailView):
         form.save()
         return super().form_valid(form)
 
+    # kur nueinam po formos submito
+    def get_success_url(self):
+        return reverse('book-one', kwargs={'pk': self.object.id})
+
 
 def search(request):
     query_text = request.GET.get("search_text", "")
@@ -114,7 +118,7 @@ def register_user(request):
     password = request.POST["password"]
     password2 = request.POST["password2"]
 
-    if password != password2 :
+    if password != password2:
         messages.error(request, "Slaptažodžiai nesutampa!!!")
 
     if User.objects.filter(username=username).exists():
@@ -129,7 +133,3 @@ def register_user(request):
     User.objects.create_user(username=username, email=email, password=password)
     messages.success(request, f"Vartotojas vardu {username} sukurtas!!!")
     return redirect('login')
-
-
-
-
