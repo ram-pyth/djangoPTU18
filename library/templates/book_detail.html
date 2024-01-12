@@ -10,6 +10,17 @@
 <p><strong>Aprašymas:</strong> {{ book.summary }} </p>
 <p><strong>Žanrai:</strong> {{ book.display_genre }}</p>
 <hr/>
+<h4>Komentarai:</h4>
+{% if book.bookreview_set.all %}
+    {% for review in book.bookreview_set.all %}
+        <hr/>
+        <small><b>{{ review.reviewer }}</b>, <em>{{ review.date_created }}</em></small>
+        <p class="bg-light">{{ review.content }}</p>
+    {% endfor %}
+{% else %}
+<p>Knyga komentarų neturi...</p>
+{% endif %}
+<hr/>
 <h5>Knygos egzemplioriai:</h5>
 {% for egz in book.bookinstance_set.all  %}
     <hr/>
