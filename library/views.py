@@ -7,7 +7,8 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
 
-from .models import Author, Book, BookInstance, Genre
+from .models import Author, Book, BookInstance, Genre, BookReview
+from .forms import BookReviewForm
 
 
 def index(request):
@@ -58,10 +59,27 @@ class BookListView(generic.ListView):
     paginate_by = 4
 
 
-class BookDetailView(generic.DetailView):
+class BookDetailView(generic.edit.FormMixin, generic.DetailView):
     model = Book
     context_object_name = "book"  # standartinis pavadinimas, sukuriamas django automatiškai
     template_name = "book_detail.html"
+    form_class = BookReviewForm
+
+    # post metodas formai
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    # formos custom validacija
+    def form_valid(self, form):
+        form.instance.book = self.object
+        form.instance.reviewer = self.request.user
+        form.save()
+        return super().form_valid(form)
 
 
 def search(request):
