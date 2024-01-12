@@ -105,7 +105,7 @@ def register_user(request):
     if User.objects.filter(email=email).exists():
         messages.error(request, f"Emailas {email} jau registruotas!!!")
 
-    if messages:
+    if messages.get_messages(request):
         return redirect('register-url')
 
     User.objects.create_user(username=username, email=email, password=password)
