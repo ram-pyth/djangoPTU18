@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 from .models import Author, Book, BookInstance, Genre, BookReview
-from .forms import BookReviewForm
+from .forms import BookReviewForm, UserUpdateForm, ProfileUpdateForm
 
 
 def index(request):
@@ -138,7 +138,17 @@ def register_user(request):
 
 @login_required
 def profilis(request):
-    return render(request, 'profilis.html')
+    if request.method == "GET":
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+
+
+    context = {
+        'u_form': u_form,
+        'p_form': p_form
+    }
+
+    return render(request, 'profilis.html', context=context)
 
 
 
