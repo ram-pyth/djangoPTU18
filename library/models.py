@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from tinymce.models import HTMLField
 from datetime import date
 import uuid
-import PIL
+from PIL import Image
 
 
 class Author(models.Model):
@@ -99,3 +99,12 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'{self.user.username} profilis'
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        img = Image.open(self.picture.path)
+        if img.height > 200 or img.width > 200:
+            new_size = (200, 200)
+            img.thumbnail(new_size)
+            img.save(self.picture.path)
+
