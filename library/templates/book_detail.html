@@ -16,7 +16,9 @@
     <form action="" method="post">
         {% csrf_token %}
         {{ form.content }}
-        <input type="submit" class="btn btn-outline-success btn-sm" value="Išsaugoti komentarą"/>
+        <div>
+            <input type="submit" class="btn btn-outline-success btn-sm mt-2" value="Išsaugoti komentarą"/>
+        </div>
     </form>
 </div>
 {% endif %}

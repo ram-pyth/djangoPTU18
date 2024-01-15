@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 from .models import Author, Book, BookInstance, Genre, BookReview
 from .forms import BookReviewForm
@@ -133,3 +134,11 @@ def register_user(request):
     User.objects.create_user(username=username, email=email, password=password)
     messages.success(request, f"Vartotojas vardu {username} sukurtas!!!")
     return redirect('login')
+
+
+@login_required
+def profilis(request):
+    return render(request, 'profilis.html')
+
+
+
