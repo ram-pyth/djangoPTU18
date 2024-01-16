@@ -168,3 +168,19 @@ class BookByUserCreateView(LoginRequiredMixin, generic.CreateView):
     def form_valid(self, form):
         form.instance.reader = self.request.user
         return super().form_valid(form)
+
+
+class BookByUserUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
+    model = BookInstance
+    success_url = '/library/mybooks'
+    template_name = 'user_book_form.html'
+    form_class = UserBookCreateForm
+    # fields = ('book', 'due_back') # alternatyva form_class = UserBookCreateForm, tinka greitam testavimui
+
+    def form_valid(self, form):
+        form.instance.reader = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        bookinstance_o = self.get_object()  # pagaunam esamą model = BookInstance objektą
+        return bookinstance_o.reader == self.request.user  # patikrinimas ar django useris sutampa su knygos kopijai prirašytu
