@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import BookReview, Profile, User
+from .models import BookReview, Profile, User, BookInstance
 
 
 class BookReviewForm(forms.ModelForm):
@@ -25,5 +25,19 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields =('picture',)
+
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
+class UserBookCreateForm(forms.ModelForm):
+    class Meta:
+        model = BookInstance
+        fields = ('book', 'reader', 'due_back',)
+        widgets = {
+            'reader': forms.HiddenInput(),
+            'due_back': DateInput(),
+        }
 
 

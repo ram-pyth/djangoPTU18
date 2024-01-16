@@ -2,14 +2,14 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.views import generic
 from django.db.models import Q
 from django.core.paginator import Paginator
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 from .models import Author, Book, BookInstance, Genre, BookReview
-from .forms import BookReviewForm, UserUpdateForm, ProfileUpdateForm
+from .forms import BookReviewForm, UserUpdateForm, ProfileUpdateForm, UserBookCreateForm
 
 
 def index(request):
@@ -157,3 +157,14 @@ def profilis(request):
     }
 
     return render(request, 'profilis.html', context=context)
+
+
+class BookByUserCreateView(LoginRequiredMixin, generic.CreateView):
+    model = BookInstance
+    success_url = '/library/mybooks'
+    template_name = 'user_book_form.html'
+    form_class = UserBookCreateForm
+
+    def form_valid(self, form):
+        form.instance.reader = self.request.user
+        return super().form_valid(form)

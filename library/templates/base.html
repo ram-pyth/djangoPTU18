@@ -79,6 +79,7 @@
                     </svg>
                     {{ user }}</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}?next=/library">logout</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'my-borrowed-new' %}">newbook</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'my-borrowed' %}">mybooks</a></li>
                 {% else %}
                 <li class="nav-item">
