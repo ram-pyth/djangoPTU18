@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Ištrinti knygą</legend>
+        <h2>Ar tikrai norite ištrinti knygą {{ bookinstance.book.title }}, {{ bookinstance.book.author }}?</h2>
+        <p> Kopijos id: {{ bookinstance.id }} </p>
+        <p> Grąžinimo data: {{ bookinstance.due_back }}</p>
+        <p> Statusas: {{ bookinstance.get_status_display }}</p>
+    </fieldset>
+    <div>
+        <button class="btn btn-outline-danger" type="submit">Taip</button>
+        <a class="btn btn-outline-secondary" href="{% url 'my-borrowed' %}">Atšaukti</a>
+    </div>
+</form>
+{% endblock content %}

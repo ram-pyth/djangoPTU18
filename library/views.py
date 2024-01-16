@@ -184,3 +184,15 @@ class BookByUserUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.Upda
     def test_func(self):
         bookinstance_o = self.get_object()  # pagaunam esamą model = BookInstance objektą
         return bookinstance_o.reader == self.request.user  # patikrinimas ar django useris sutampa su knygos kopijai prirašytu
+
+
+class BookByUserDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
+    model = BookInstance
+    success_url = '/library/mybooks'
+    template_name = 'user_book_delete.html'
+
+    def test_func(self):
+        bookinstance_o = self.get_object()  # pagaunam esamą model = BookInstance objektą
+        return bookinstance_o.reader == self.request.user  # patikrinimas ar django useris sutampa su knygos kopijai prirašytu
+
+

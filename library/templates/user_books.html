@@ -15,6 +15,7 @@
             {{ egz.due_back }}
         <div>
             <a class="btn btn-secondary btn-sm" href="{% url 'my-borrowed-update' egz.id %}">Redaguoti</a>
+            <a class="btn btn-secondary btn-sm" href="{% url 'my-borrowed-delete' egz.id %}">Trinti</a>
         </div>
         </li>
     {% endfor %}
