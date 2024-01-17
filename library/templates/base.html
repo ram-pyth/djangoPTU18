@@ -100,6 +100,27 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'authors-all' %}">Autoriai</a>
                 </li>
+                {% load i18n %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans 'EN' %}</a>
+                    <form action="{% url 'set_language' %}" method="post" id="lang_form">{% csrf_token %}
+                        <input name="next" type="hidden" value="{{ redirect_to }}">
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {% get_current_language as LANGUAGE_CODE %}
+                            {% get_available_languages as LANGUAGES %}
+                            {% get_language_info_list for LANGUAGES as languages %}
+                            {% for language in languages %}
+                            <li>
+                                <button type="submit" name="language" value="{{ language.code }}"
+                                        class="{% if language.code == LANGUAGE_CODE %}selected{% else%}demo-text-black{% endif %} dropdown-item">
+                                    {% trans language.name %}
+                                </button>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </form>
+                </li>
             </ul>
 
 
@@ -135,7 +156,6 @@
 
 <div class="container">
 
-    <h1>{{ request.path }}</h1>
     {% block content %}{% endblock %}</div>
 
 <script

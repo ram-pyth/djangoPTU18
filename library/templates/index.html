@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-
+{% load i18n %}
 {% block content %}
-<h1>Rajono biblioteka</h1>
-<p>Knygų skaičius: {{ num_books_t }}</p>
-<p>Knygų egzempliorių skaičius: {{ num_bookinstances_t }}</p>
-<p>Autorių skaičius: {{ num_authors_t }}</p>
-<p>Šiuo momentu laisvi {{ num_instances_available_t }} knygų egz.</p>
-<h3>Sveiki {{ user }}, jūs lankotės šiame puslapyje {{ num_visits_t }} kartą.</h3>
+<h1>{% trans "Local library" %}</h1>
+<p>{% trans "Books number:" %} {{ num_books_t }}</p>
+<p>{% trans "Book copies number:" %} {{ num_bookinstances_t }}</p>
+<p>{% trans "Authors number:" %} {{ num_authors_t }}</p>
+<p>{% trans "Currently" %} {{ num_instances_available_t }} {% trans "book copies available." %}</p>
+<h3>{% trans "Hello" %} {{ user }}, "you've visited this page" {{ num_visits_t }} {% trans "times." %}</h3>
 {% endblock %}
 

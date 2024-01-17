@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -167,3 +168,9 @@ TINYMCE_DEFAULT_CONFIG = {
 }
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LANGUAGES = (
+    ('en-us', 'English'),
+    ('lt', 'Lithuanian'),
+    ('it', 'Italian'), # neturint vertimų failų naudojamas standartinis kodas
+)

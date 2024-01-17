@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 
 from tinymce.models import HTMLField
 from datetime import date
@@ -28,18 +29,18 @@ class Author(models.Model):
 class Book(models.Model):
     """Modelis reprezentuoja knygą-leidinį, ne konkretų
     bibliotekos turimą fizinį egzempliorių"""
-    title = models.CharField('Pavadinimas', max_length=150)
+    title = models.CharField(_('Title'), max_length=150)
     author = models.ForeignKey(Author, on_delete=models.SET_NULL, null=True, related_name='books')
-    summary = models.TextField('Aprašymas', max_length=1000, help_text='Trumpas knygos aprašymas')
+    summary = models.TextField(_('Summary'), max_length=1000, help_text='Trumpas knygos aprašymas')
     isbn = models.CharField('ISBN', max_length=13,
                             help_text='13 simbolių <a href="https://en.wikipedia.org/wiki/ISBN">ISBN wiki</a>')
     genre = models.ManyToManyField('Genre', help_text='Išrinkite knygai žanrus')
-    cover = models.ImageField('Viršelis', upload_to='covers', null=True, blank=True)
+    cover = models.ImageField(_('Cover'), upload_to='covers', null=True, blank=True)
 
     def display_genre(self):
         return ', '.join(el.name for el in self.genre.all())
 
-    display_genre.short_description = "Žanrai"
+    display_genre.short_description = _("Genres")
 
     def __str__(self):
         return f'{self.title}'

@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.utils.translation import gettext as _
 
 from .models import Author, Book, BookInstance, Genre, BookReview
 from .forms import BookReviewForm, UserUpdateForm, ProfileUpdateForm, UserBookCreateForm
@@ -120,19 +121,19 @@ def register_user(request):
     password2 = request.POST["password2"]
 
     if password != password2:
-        messages.error(request, "Slaptažodžiai nesutampa!!!")
+        messages.error(request, _("Passwords don't match!!!"))
 
     if User.objects.filter(username=username).exists():
-        messages.error(request, f"Vartotojo vardas {username} užimtas!!!")
+        messages.error(request, _("User %s already exists!!!") % username)
 
     if User.objects.filter(email=email).exists():
-        messages.error(request, f"Emailas {email} jau registruotas!!!")
+        messages.error(request, _(f"Email {email} already registered!!!"))
 
     if messages.get_messages(request):
         return redirect('register-url')
 
     User.objects.create_user(username=username, email=email, password=password)
-    messages.success(request, f"Vartotojas vardu {username} sukurtas!!!")
+    messages.success(request, _("User %s created!!!") % username)
     return redirect('login')
 
 
