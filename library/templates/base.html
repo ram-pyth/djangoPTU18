@@ -103,7 +103,7 @@
                 {% load i18n %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans 'EN' %}</a>
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% get_current_language as LANGUAGE_CODE %}{{ LANGUAGE_CODE }}</a>
                     <form action="{% url 'set_language' %}" method="post" id="lang_form">{% csrf_token %}
                         <input name="next" type="hidden" value="{{ redirect_to }}">
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -113,7 +113,7 @@
                             {% for language in languages %}
                             <li>
                                 <button type="submit" name="language" value="{{ language.code }}"
-                                        class="{% if language.code == LANGUAGE_CODE %}selected{% else%}demo-text-black{% endif %} dropdown-item">
+                                        class="{% if language.code == LANGUAGE_CODE %}selected{% else %}demo-text-black{% endif %} dropdown-item">
                                     {% trans language.name %}
                                 </button>
                             </li>
