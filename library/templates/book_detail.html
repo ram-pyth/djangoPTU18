@@ -45,7 +45,14 @@
               {% else %} text-warning
               {% endif %}
     "><strong>{{ egz.get_status_display }}</strong>
-</p>
 
+</p>
+{% for group in user.groups.all %}
+    {% if group.name == 'Personalas' %}
+    <div>
+        <a class="btn btn-secondary btn-sm" href="{% url 'bookinstance-delete' egz.id %}">Trinti</a>
+    </div>
+    {% endif %}
+{% endfor %}
 {% endfor %}
 {% endblock %}

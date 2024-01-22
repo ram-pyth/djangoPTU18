@@ -12,6 +12,7 @@ from .models import Author, Book, BookInstance, Genre, BookReview
 from .forms import BookReviewForm, UserUpdateForm, ProfileUpdateForm, UserBookCreateForm
 
 
+
 def index(request):
     # suskaičiuojam knygas ir jų egzempliorius
     num_books = Book.objects.count()
@@ -194,5 +195,17 @@ class BookByUserDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.Dele
     def test_func(self):
         bookinstance_o = self.get_object()  # pagaunam esamą model = BookInstance objektą
         return bookinstance_o.reader == self.request.user  # patikrinimas ar django useris sutampa su knygos kopijai prirašytu
+
+
+class BookByGroupDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
+    model = BookInstance
+    # success_url = '/library/books'
+    template_name = 'user_book_delete.html'
+
+    def get_success_url(self):
+        return reverse('book-one', kwargs={'pk': self.object.book.id}) # self.object - bookinstance objektas, book - FK į Book
+
+    def test_func(self):
+        return self.request.user.groups.filter(name='Personalas').exists()  # patikrinimas ar useris priklauso grupei Personalas
 
 

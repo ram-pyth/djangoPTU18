@@ -12,7 +12,7 @@
     </fieldset>
     <div>
         <button class="btn btn-outline-danger" type="submit">Taip</button>
-        <a class="btn btn-outline-secondary" href="{% url 'my-borrowed' %}">Atšaukti</a>
+        <a class="btn btn-outline-secondary" href="{% url 'book-one' bookinstance.book.id %}">Atšaukti</a>
     </div>
 </form>
 {% endblock content %}

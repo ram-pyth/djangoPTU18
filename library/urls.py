@@ -16,6 +16,8 @@ urlpatterns = [
     path("mybooks/new", views.BookByUserCreateView.as_view(), name="my-borrowed-new"),
     path("mybooks/<uuid:pk>", views.BookByUserUpdateView.as_view(), name="my-borrowed-update"),
     path("mybooks/<uuid:pk>/delete", views.BookByUserDeleteView.as_view(), name="my-borrowed-delete"),
+
+    path("books/<uuid:pk>/delete", views.BookByGroupDeleteView.as_view(), name="bookinstance-delete"),
 ]
 
 

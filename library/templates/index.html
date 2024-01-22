@@ -7,5 +7,9 @@
 <p>Autorių skaičius: {{ num_authors_t }}</p>
 <p>Šiuo momentu laisvi {{ num_instances_available_t }} knygų egz.</p>
 <h3>Sveiki {{ user }}, jūs lankotės šiame puslapyje {{ num_visits_t }} kartą.</h3>
+<p> Grupės: {% for group in user.groups.all %}
+                    {{ group }}
+            {% endfor %}
+</p>
 {% endblock %}
 
