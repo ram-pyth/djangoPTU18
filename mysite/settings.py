@@ -167,3 +167,8 @@ TINYMCE_DEFAULT_CONFIG = {
 }
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+AUTHENTICATION_BACKENDS = [
+    'library.backends.EmailOrUsernameModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
